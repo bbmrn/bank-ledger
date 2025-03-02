@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbitmq
+      - postgres
+      - mongo
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: youruser
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: yourdb
+    ports:
+      - "5432:5432"
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"

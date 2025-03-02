@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: banking-ledger-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: banking-ledger-service
+  template:
+    metadata:
+      labels:
+        app: banking-ledger-service
+    spec:
+      containers:
+      - name: banking-ledger-service
+        image: banking-ledger-service
+        ports:
+        - containerPort: 8080
