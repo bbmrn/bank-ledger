@@ -11,6 +11,17 @@ import (
 )
 
 // CreateAccount handles account creation
+// CreateAccount godoc
+// @Summary Create a new bank account
+// @Description Creates a new user account with the provided details
+// @Tags accounts
+// @Accept json
+// @Produce json
+// @Param user body models.User true "User account information"
+// @Success 201 {object} models.User "Successfully created account"
+// @Failure 400 {object} gin.H "Bad request - Invalid input"
+// @Failure 500 {object} gin.H "Internal server error"
+// @Router /accounts [post]
 func CreateAccount(c *gin.Context) {
 	var user models.User
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -29,6 +40,19 @@ func CreateAccount(c *gin.Context) {
 }
 
 // GetAccount handles fetching account details
+// GetAccount retrieves a single user account from the database by ID.
+// It responds with the user details including ID, name, email, balance, and creation timestamp.
+//
+// @Summary Get user account details
+// @Description Fetch a user account by ID from the database
+// @Tags accounts
+// @Accept json
+// @Produce json
+// @Param id path string true "User ID"
+// @Success 200 {object} models.User
+// @Failure 404 {object} object "User not found"
+// @Failure 500 {object} object "Internal server error"
+// @Router /accounts/{id} [get]
 func GetAccount(c *gin.Context) {
 	id := c.Param("id")
 	var user models.User
