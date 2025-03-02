@@ -12,6 +12,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// TestProcessTransaction tests the ProcessTransaction handler function.
+// It verifies the following scenarios:
+//  1. Valid credit transaction - Ensures a credit transaction is processed successfully
+//  2. Valid debit transaction - Ensures a debit transaction is processed successfully
+//  3. Insufficient balance - Verifies proper error handling when account has insufficient funds
+//
+// For each test case it:
+//   - Sets up a mock HTTP request with transaction data
+//   - Calls ProcessTransaction handler
+//   - Validates the HTTP status code
+//   - Validates the response body matches expected output
+//
+// The test uses table-driven testing pattern with Gin's test mode.
 func TestProcessTransaction(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
