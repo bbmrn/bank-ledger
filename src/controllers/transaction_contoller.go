@@ -9,6 +9,32 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ProcessTransaction handles financial transactions for user accounts.
+// It processes both debit and credit transactions while ensuring atomic operations
+// using database transactions.
+//
+// The function performs the following steps:
+// 1. Validates the incoming JSON transaction request
+// 2. Begins a database transaction
+// 3. Locks and retrieves the current user balance
+// 4. Validates sufficient balance for debit transactions
+// 5. Updates the user's balance
+// 6. Logs the transaction details
+// 7. Commits the database transaction
+//
+// Parameters:
+//   - c *gin.Context: The Gin context containing the HTTP request and response
+//
+// Request Body:
+//   - UserID: The ID of the user performing the transaction
+//   - Amount: The transaction amount
+//   - Type: The transaction type ("debit" or "credit")
+//   - Description: A description of the transaction
+//
+// Returns:
+//   - 201 StatusCreated: Transaction processed successfully
+//   - 400 StatusBadRequest: Invalid request payload or insufficient balance
+//   - 500 StatusInternalServerError: Database or transaction processing errors
 func ProcessTransaction(c *gin.Context) {
 	var transaction models.Transaction
 	if err := c.ShouldBindJSON(&transaction); err != nil {
