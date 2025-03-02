@@ -13,6 +13,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// TestCreateAccount tests the CreateAccount handler function
+// It verifies that:
+// - A new account can be created via POST request to "/accounts"
+// - The response status code is 201 (Created)
+// - The response body contains the created user with valid ID
+// - The created user matches the test user data (name, email, balance)
+// The test:
+// 1. Sets up a test Gin router
+// 2. Creates test user data
+// 3. Makes a POST request with the test user JSON
+// 4. Validates the response status and user data
 func TestCreateAccount(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	r := gin.Default()
